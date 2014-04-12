@@ -25,6 +25,7 @@
 
 #include <yip-imports/tinyxml.h>
 #include <string>
+#include <vector>
 
 TiXmlElement * xmlParse(TiXmlDocument & doc, std::string buffer, const std::string & rootElementName);
 
@@ -32,6 +33,9 @@ bool xmlAttrToFloat(const TiXmlAttribute * attr, float & val);
 bool xmlAttrToDouble(const TiXmlAttribute * attr, double & val);
 bool xmlAttrToInt(const TiXmlAttribute * attr, int & val);
 bool xmlAttrToLong(const TiXmlAttribute * attr, long & val);
+
+bool xmlAttrToCommaSeparatedFloatList(const TiXmlAttribute * attr, std::vector<float> & list);
+bool xmlAttrToCommaSeparatedDoubleList(const TiXmlAttribute * attr, std::vector<double> & list);
 
 std::string xmlError(const TiXmlBase * loc, const std::string & msg);
 std::string xmlMissingAttribute(const TiXmlElement * element, const char * attribute);

@@ -23,6 +23,7 @@
 #include "tinyxml-util.h"
 #include <yip-imports/strtod.h>
 #include <cstdlib>
+#include <cctype>
 #include <sstream>
 #include <stdexcept>
 
@@ -58,7 +59,7 @@ bool xmlAttrToFloat(const TiXmlAttribute * attr, float & val)
 bool xmlAttrToDouble(const TiXmlAttribute * attr, double & val)
 {
 	const char * str = attr->Value();
-	char * end = NULL;
+	char * end = nullptr;
 	double value = p_strtod(str, &end);
 
 	if (!*end)
@@ -73,7 +74,7 @@ bool xmlAttrToDouble(const TiXmlAttribute * attr, double & val)
 bool xmlAttrToInt(const TiXmlAttribute * attr, int & val)
 {
 	const char * str = attr->Value();
-	char * end = NULL;
+	char * end = nullptr;
 	long value = strtol(str, &end, 0);
 
 	if (!*end)
@@ -88,7 +89,7 @@ bool xmlAttrToInt(const TiXmlAttribute * attr, int & val)
 bool xmlAttrToLong(const TiXmlAttribute * attr, long & val)
 {
 	const char * str = attr->Value();
-	char * end = NULL;
+	char * end = nullptr;
 	long value = strtol(str, &end, 0);
 
 	if (!*end)
@@ -98,6 +99,60 @@ bool xmlAttrToLong(const TiXmlAttribute * attr, long & val)
 	}
 
 	return false;
+}
+
+bool xmlAttrToCommaSeparatedFloatList(const TiXmlAttribute * attr, std::vector<float> & list)
+{
+	const char * str = attr->Value();
+	const char * p;
+
+	do
+	{
+		p = strchr(str, ',');
+		std::string val = (p ? std::string(str, p - str) : std::string(str));
+
+		const char * pp = val.c_str();
+		char * end = nullptr;
+		float value = static_cast<float>(p_strtod(pp, &end));
+
+		while (isspace(*end))
+			++end;
+		if (*end != 0)
+			return false;
+
+		list.push_back(value);
+		str = p + 1;
+	}
+	while (p);
+
+	return true;
+}
+
+bool xmlAttrToCommaSeparatedDoubleList(const TiXmlAttribute * attr, std::vector<double> & list)
+{
+	const char * str = attr->Value();
+	const char * p;
+
+	do
+	{
+		p = strchr(str, ',');
+		std::string val = (p ? std::string(str, p - str) : std::string(str));
+
+		const char * pp = val.c_str();
+		char * end = nullptr;
+		double value = p_strtod(pp, &end);
+
+		while (isspace(*end))
+			++end;
+		if (*end != 0)
+			return false;
+
+		list.push_back(value);
+		str = p + 1;
+	}
+	while (p);
+
+	return true;
 }
 
 std::string xmlError(const TiXmlBase * loc, const std::string & msg)
