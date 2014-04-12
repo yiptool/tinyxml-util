@@ -21,9 +21,10 @@
 // THE SOFTWARE.
 //
 #include "tinyxml-util.h"
-#include <stdexcept>
+#include <yip-imports/strtod.h>
 #include <cstdlib>
 #include <sstream>
+#include <stdexcept>
 
 TiXmlElement * xmlParse(TiXmlDocument & doc, std::string buffer, const std::string & rootElementName)
 {
@@ -58,7 +59,7 @@ bool xmlAttrToDouble(const TiXmlAttribute * attr, double & val)
 {
 	const char * str = attr->Value();
 	char * end = NULL;
-	double value = strtod(str, &end);
+	double value = p_strtod(str, &end);
 
 	if (!*end)
 	{
