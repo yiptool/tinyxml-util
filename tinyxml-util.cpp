@@ -37,6 +37,11 @@ TiXmlElement * xmlParse(TiXmlDocument & doc, std::string buffer, const std::stri
 		throw std::runtime_error(ss.str());
 	}
 
+	return xmlCheckRootElement(doc, rootElementName);
+}
+
+TiXmlElement * xmlCheckRootElement(TiXmlDocument & doc, const std::string & rootElementName)
+{
 	TiXmlElement * rootElement = doc.RootElement();
 	if (rootElement->ValueStr() != rootElementName)
 	{
@@ -44,8 +49,17 @@ TiXmlElement * xmlParse(TiXmlDocument & doc, std::string buffer, const std::stri
 		ss << "root element is not '" << rootElementName << "'.";
 		throw std::runtime_error(xmlError(rootElement, ss.str()));
 	}
-
 	return rootElement;
+}
+
+TiXmlElement * xmlCheckRootElement(TiXmlDocument * doc, const std::string & rootElementName)
+{
+	return xmlCheckRootElement(*doc, rootElementName);
+}
+
+TiXmlElement * xmlCheckRootElement(const std::shared_ptr<TiXmlDocument> & doc, const std::string & rootElementName)
+{
+	return xmlCheckRootElement(*doc.get(), rootElementName);
 }
 
 bool xmlAttrToFloat(const TiXmlAttribute * attr, float & val)
