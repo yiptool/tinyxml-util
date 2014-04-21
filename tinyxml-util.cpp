@@ -64,25 +64,12 @@ TiXmlElement * xmlCheckRootElement(const std::shared_ptr<TiXmlDocument> & doc, c
 
 bool xmlAttrToFloat(const TiXmlAttribute * attr, float & val)
 {
-	double v = static_cast<double>(val);
-	bool flag = xmlAttrToDouble(attr, v);
-	val = static_cast<float>(v);
-	return flag;
+	return strToFloat(attr->ValueStr(), val);
 }
 
 bool xmlAttrToDouble(const TiXmlAttribute * attr, double & val)
 {
-	const char * str = attr->Value();
-	char * end = nullptr;
-	double value = p_strtod(str, &end);
-
-	if (!*end)
-	{
-		val = value;
-		return true;
-	}
-
-	return false;
+	return strToDouble(attr->ValueStr(), val);
 }
 
 bool xmlAttrToInt(const TiXmlAttribute * attr, int & val)
