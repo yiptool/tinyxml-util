@@ -116,7 +116,7 @@ bool xmlAttrToCommaSeparatedFloatList(const TiXmlAttribute * attr, std::vector<f
 	do
 	{
 		p = strchr(str, ',');
-		std::string val = (p ? std::string(str, p - str) : std::string(str));
+		std::string val = (p ? std::string(str, size_t(p - str)) : std::string(str));
 
 		const char * pp = val.c_str();
 		char * end = nullptr;
@@ -143,7 +143,7 @@ bool xmlAttrToCommaSeparatedDoubleList(const TiXmlAttribute * attr, std::vector<
 	do
 	{
 		p = strchr(str, ',');
-		std::string val = (p ? std::string(str, p - str) : std::string(str));
+		std::string val = (p ? std::string(str, size_t(p - str)) : std::string(str));
 
 		const char * pp = val.c_str();
 		char * end = nullptr;
