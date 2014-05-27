@@ -23,7 +23,12 @@
 #ifndef __d2d772c8d76fcd3cf1aa0fb94ef35729__
 #define __d2d772c8d76fcd3cf1aa0fb94ef35729__
 
+#ifdef BUILDING_YIP
+#include "../../3rdparty/tinyxml/tinyxml.h"
+#else
 #include <yip-imports/tinyxml.h>
+#endif
+
 #include <string>
 #include <memory>
 #include <vector>

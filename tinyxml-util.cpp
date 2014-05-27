@@ -21,7 +21,13 @@
 // THE SOFTWARE.
 //
 #include "tinyxml-util.h"
+
+#ifdef BUILDING_YIP
+#include "../strtod/strtod.h"
+#else
 #include <yip-imports/strtod.h>
+#endif
+
 #include <cstdlib>
 #include <cctype>
 #include <sstream>
