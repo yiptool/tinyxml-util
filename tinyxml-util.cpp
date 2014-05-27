@@ -63,6 +63,23 @@ TiXmlElement * xmlCheckRootElement(TiXmlDocument * doc, const std::string & root
 	return xmlCheckRootElement(*doc, rootElementName);
 }
 
+const TiXmlElement * xmlCheckRootElement(const TiXmlDocument & doc, const std::string & rootElementName)
+{
+	const TiXmlElement * rootElement = doc.RootElement();
+	if (rootElement->ValueStr() != rootElementName)
+	{
+		std::stringstream ss;
+		ss << "root element is not '" << rootElementName << "'.";
+		throw std::runtime_error(xmlError(rootElement, ss.str()));
+	}
+	return rootElement;
+}
+
+const TiXmlElement * xmlCheckRootElement(const TiXmlDocument * doc, const std::string & rootElementName)
+{
+	return xmlCheckRootElement(*doc, rootElementName);
+}
+
 TiXmlElement * xmlCheckRootElement(const std::shared_ptr<TiXmlDocument> & doc, const std::string & rootElementName)
 {
 	return xmlCheckRootElement(*doc.get(), rootElementName);
