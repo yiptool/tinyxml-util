@@ -183,6 +183,6 @@ std::string xmlMissingAttribute(const TiXmlElement * element, const char * attri
 std::string xmlInvalidAttributeValue(const TiXmlAttribute * attr)
 {
 	std::stringstream ss;
-	ss << "invalid value for the '" << attr->Name() << "' attribute.";
+	ss << "invalid value for the '" << attr->NameTStr() << "' attribute.";
 	return xmlError(attr, ss.str());
 }
