@@ -85,6 +85,21 @@ TiXmlElement * xmlCheckRootElement(const std::shared_ptr<TiXmlDocument> & doc, c
 	return xmlCheckRootElement(*doc.get(), rootElementName);
 }
 
+bool xmlAttrToBool(const TiXmlAttribute * attr, bool & val)
+{
+	if (attr->ValueStr() == "true" || attr->ValueStr() == "yes")
+	{
+		val = true;
+		return true;
+	}
+	else if (attr->ValueStr() == "false" || attr->ValueStr() == "no")
+	{
+		val = false;
+		return true;
+	}
+	return false;
+}
+
 bool xmlAttrToFloat(const TiXmlAttribute * attr, float & val)
 {
 	return strToFloat(attr->ValueStr(), val);

@@ -41,6 +41,7 @@ const TiXmlElement * xmlCheckRootElement(const TiXmlDocument & doc, const std::s
 const TiXmlElement * xmlCheckRootElement(const TiXmlDocument * doc, const std::string & rootElementName);
 TiXmlElement * xmlCheckRootElement(const std::shared_ptr<TiXmlDocument> & doc, const std::string & rootElementName);
 
+bool xmlAttrToBool(const TiXmlAttribute * attr, bool & val);
 bool xmlAttrToFloat(const TiXmlAttribute * attr, float & val);
 bool xmlAttrToDouble(const TiXmlAttribute * attr, double & val);
 bool xmlAttrToInt(const TiXmlAttribute * attr, int & val);
